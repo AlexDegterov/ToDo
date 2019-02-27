@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'task';
+  public tasks = [];
+
+  public form: FormGroup = new FormGroup( {
+    task: new FormControl()
+  });
+
+  submit() {
+    if(this.form.value.task == 'null') return;
+    this.tasks.push(this.form.value.task);
+    this.form.reset();
+  }
+
+  deleteTask(index: number) {
+    this.tasks.splice(index, 1);
+  }
+
 }
