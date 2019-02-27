@@ -1,0 +1,70 @@
+.calendar {
+       margin: 10px 50px 50px 50px;
+       width: 365px;
+    }
+
+   .selectDate {
+       margin: 50px 50px 10px 30px;
+       width: 505px;
+    }
+
+   select {
+      margin-left: 10px;
+   }
+
+    .head .day {
+       background: #EE3233;
+       color: #fff;
+    }
+
+    .date {
+       font-weight: bold;
+       font-size: 18px;
+       text-align: center;
+       margin-bottom: 5px;
+       margin-top: 20px;
+    }
+
+    .week {
+       display: flex;
+       flex-wrap: nowrap;
+    }
+
+    .day {
+       border: 1px #ddd solid;
+       flex-basis: 50px;
+       background: #eee;
+       height: 50px;
+       text-align: center;
+       font-size: 25px;
+       position: static;
+       color: #555;
+       font-weight: bold;
+    }
+
+    .day span {
+       position: relative;
+       top: 10px;
+    }
+
+    .holiday {
+       background: #787878;
+       color: #fff;
+    }
+    button {
+       margin: 0px 10px;
+    }
+
+    .dDate{
+       width: 160px;
+       display: inline-block;
+    }
+
+	.highlight {
+		background: #ff0;
+      cursor: context-menu;
+	}
+
+	.highlightClick {
+		background: #4caf50;
+	}

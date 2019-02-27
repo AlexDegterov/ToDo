@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>calendar with selects</title>
+</head>
+
+<body>
+   <header id="selectDate" class="selectDate">
+   </header>
+
+      <div class="calendar">
+         <div id="calendar">
+
+         </div>
+      </div>
+
+
+	<script>
+      let output = document.getElementById("calendar");
+      let thisDay = "";
+      let selectMonth = ["Выбрать месяц", "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+      let selectYear = ["Выбрать год"];
+      let date = new Date();
+      let year = date.getFullYear();
+      let month = date.getMonth();
+      let selectDiv = document.getElementById("selectDate");
+      let numCalendar = 0;
+
+      // Формируем массив лет
+      for (i = 1980; i<=2018; i++) {
+         selectYear[selectYear.length] = String(i);
+      }
+
+      // Создаем select с месяцами из массива
+      let select1 = document.createElement('select');
+      select1.setAttribute("id", "selectMonth");
+      for (i=0; i < selectMonth.length; i++) {
+         select1.innerHTML += "<option value=" + i + ">" + selectMonth[i] + "</option>";
+      }
+      select1.addEventListener("change", selSelect);
+      selectDiv.appendChild(select1);
+
+      // Создаем select с годами из массива
+      let select2 = document.createElement('select');
+      select2.setAttribute("id", "selectYear");
+      for (i=0; i < selectYear.length; i++) {
+         select2.innerHTML += "<option value=" + selectYear[i] + ">" + selectYear[i] + "</option>";
+      }
+      select2.addEventListener("change", selSelect);
+      selectDiv.appendChild(select2);
+
+      // Создаем кнопку Создать
+      let buttonCreate = document.createElement('button');
+      buttonCreate.innerHTML = "Создать";
+      buttonCreate.setAttribute("id", "butCreate");
+      buttonCreate.setAttribute("disabled", "");
+      buttonCreate.addEventListener("click", btnClickCreate);
+      selectDiv.appendChild(buttonCreate);
+
+      // Создаем кнопку Удалить
+      let buttonDelete = document.createElement('button');
+      buttonDelete.innerHTML = "Удалить";
+      buttonDelete.setAttribute("id", "butDelete");
+      buttonDelete.addEventListener("click", btnClickDelete);
+      selectDiv.appendChild(buttonDelete);
+
+      drawCalendar(year, month);
+
+      // Функция создания календаря
+      function btnClickCreate() {
+         let selMonth = +document.getElementById("selectMonth").value-1;
+         let selYear = +document.getElementById("selectYear").value;
+         drawCalendar(selYear, selMonth);
+      }
+
+      // Функция при выборе select'a (проверки)
+      function selSelect(self) {
+         if(document.getElementById("selectMonth").value > 0 && document.getElementById("selectYear").value > 0) {
+            document.getElementById("butCreate").disabled = false;
+         } else {
+            document.getElementById("butCreate").disabled = true;
+         }
+      }
+
+      // функция удаления первого календаря
+      function btnClickDelete() {
+         let allCalendar = document.getElementById("calendar");
+         allCalendar.removeChild(allCalendar.children[0]);
+         if (!allCalendar.children.length) {
+            document.getElementById("butDelete").disabled = true;
+         }
+
+      }
+
+      // Основная функция отрисовки календаря
+      function drawCalendar (year, month) {
+         let inner = "";
+         let dateFirstDay = new Date(year, month, 1, 15);
+         let day = dateFirstDay.getDay();
+         let daysInMonth = 32 - new Date(year, month, 32).getDate();
+         (day === 0) ? day = 7 : "";
+         ++numCalendar;
+
+         inner += "<div class='date' id='date" + numCalendar + "'></div>";
+         inner += "<div class='week head'><div class='day'><span>пн</span></div><div class='day'><span>вт</span></div><div class='day'><span>ср</span></div><div class='day'><span>чт</span></div><div class='day'><span>пт</span></div><div class='day'><span>сб</span></div><div class='day'><span>вс</span></div></div><div id = 'weekCalendar" + numCalendar +"'>";
+
+         let weekStop = 0;
+         for (w = 0; w < 6 && !weekStop; w++) {
+            inner += "<div class='week'>";
+
+            for (i = 0; i <= 6; i++) {
+               let holiday = "";
+
+               (i === day - 1 && w === 0) ? thisDay++ : "";             // Старт вывода даты
+               (i === 5 || i === 6) ? holiday = " holiday" : "";
+               inner += "<div class='day" + holiday + "'><span>" + thisDay + "</span></div>";
+               thisDay === daysInMonth ? weekStop = 1 : "";           // Останавливаем цикл, что бы не было лишних недель
+
+               (thisDay > 0 && thisDay < daysInMonth) ? thisDay++ : thisDay = "";
+            }
+
+            inner += "</div>";
+         }
+
+		 inner += "</div>";
+		 
+         let calendarCreate = document.createElement('div');
+         calendarCreate.setAttribute("id", "newCalendar" + numCalendar);
+         calendarCreate.setAttribute("class", "date");
+         calendarCreate.innerHTML = inner;
+         document.getElementById("calendar").appendChild(calendarCreate);
+         document.getElementById("date" + numCalendar).innerHTML = "<div class='dDate'>" + selectMonth[++month] + " " + year + " года</div>";
+
+         document.getElementById("butDelete").disabled = false;
+		 
+		 // Обработчик слежения за передвижением (делегирование)
+		 let weekCalendar = document.getElementById("weekCalendar" + numCalendar);
+		 weekCalendar.addEventListener("mouseover", dayHighlight);
+		 weekCalendar.addEventListener("mouseout", dayHighlightNo);
+		 
+		 function dayHighlight (event) {
+			let target = event.target;
+			if(target.innerText) {
+				if (target.tagName !== 'DIV') {
+					target.parentNode.classList.add('highlight');
+				} else {
+					event.target.classList.add('highlight');
+				}
+			}
+		 }
+		 
+		 function dayHighlightNo (event) {
+			let target = event.target;
+			if (target.tagName !== 'DIV') {
+				target.parentNode.classList.remove('highlight');
+			} else {
+				event.target.classList.remove('highlight');
+			}
+		 }
+		 
+		
+		// Обаботчик выделения даты цветом
+		weekCalendar.addEventListener("click", dayHighlightAfterClick);
+		function dayHighlightAfterClick (event) {
+			let target = event.target;
+			let arrHighlightClick = weekCalendar.getElementsByClassName("highlightClick");
+			if (arrHighlightClick.length > 0) {
+				arrHighlightClick[0].classList.remove('highlightClick');
+			}
+			if(target.innerText) {
+				if (target.tagName !== 'DIV') {
+					target.parentNode.classList.add('highlightClick');
+				} else {
+					event.target.classList.add('highlightClick');
+				}
+			}
+		 }
+      }
+   </script>
+
+
+
+
+
+
+
+ <style>
+    .calendar {
+       margin: 10px 50px 50px 50px;
+       width: 365px;
+    }
+
+   .selectDate {
+       margin: 50px 50px 10px 30px;
+       width: 505px;
+    }
+
+   select {
+      margin-left: 10px;
+   }
+
+    .head .day {
+       background: #EE3233;
+       color: #fff;
+    }
+
+    .date {
+       font-weight: bold;
+       font-size: 18px;
+       text-align: center;
+       margin-bottom: 5px;
+       margin-top: 20px;
+    }
+
+    .week {
+       display: flex;
+       flex-wrap: nowrap;
+    }
+
+    .day {
+       border: 1px #ddd solid;
+       flex-basis: 50px;
+       background: #eee;
+       height: 50px;
+       text-align: center;
+       font-size: 25px;
+       position: static;
+       color: #555;
+       font-weight: bold;
+    }
+
+    .day span {
+       position: relative;
+       top: 10px;
+    }
+
+    .holiday {
+       background: #787878;
+       color: #fff;
+    }
+    button {
+       margin: 0px 10px;
+    }
+
+    .dDate{
+       width: 160px;
+       display: inline-block;
+    }
+	
+	.highlight {
+		background: #ff0;
+      cursor: context-menu;
+	}
+	
+	.highlightClick {
+		background: #4caf50;
+	}
+	
+ </style>
+
+</body>
+</html>

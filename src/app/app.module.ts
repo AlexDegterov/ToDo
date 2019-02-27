@@ -7,10 +7,12 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatIconModule, MatToolbarModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

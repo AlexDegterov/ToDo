@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>calendar with btns</title>
+</head>
+
+<body>
+   <div class="calendar">
+      <div class="date" id="date">
+
+      </div>
+      <div class="week head">
+       <div class="day"><span>пн</span></div>
+       <div class="day"><span>вт</span></div>
+       <div class="day"><span>ср</span></div>
+       <div class="day"><span>чт</span></div>
+       <div class="day"><span>пт</span></div>
+       <div class="day"><span>сб</span></div>
+       <div class="day"><span>вс</span></div>
+      </div>
+
+      <div id="calendar">
+
+      </div>
+   </div>
+
+
+	<script>
+
+      let output = document.getElementById("calendar");
+      let thisDay = "";
+      let arrMonthRu = {0: "Январь", 1: "Февраль", 2: "Март", 3: "Апрель", 4: "Май", 5: "Июнь", 6: "Июль", 7: "Август", 8: "Сентябрь", 9: "Октябрь", 10: "Ноябрь", 11: "Декабрь"};
+
+
+      let monthUser = 2;
+      let yearUser = 2019;
+
+      drawCalendar();
+
+      function drawCalendar () {
+         let inner = "";
+         let dateUser = new Date(yearUser, monthUser, 1, 15);
+         let day = dateUser.getDay();
+         let daysInMonth = 32 - new Date(yearUser, monthUser, 32).getDate();
+         (day === 0) ? day = 7 : "";
+
+
+         let weekStop = 0;
+         for (w = 0; w < 6 && !weekStop; w++) {
+            inner += "<div class='week'>";
+
+            for (i = 0; i <= 6; i++) {
+               let holiday = "";
+
+               (i === day - 1 && w === 0) ? thisDay++ : "";             // Старт вывода даты
+               (i === 5 || i === 6) ? holiday = " holiday" : "";
+               inner += "<div class='day" + holiday + "'><span>" + thisDay + "</span></div>";
+               thisDay === daysInMonth ? weekStop = 1 : "";           // Останавливаем цикл, что бы не было лишних недель
+
+               (thisDay > 0 && thisDay < daysInMonth) ? thisDay++ : thisDay = "";
+            }
+
+            inner += "</div>";
+         }
+
+         output.innerHTML = inner;
+
+         document.getElementById("date").innerHTML = "<button onclick='lessYear()'> << </button> <button onclick='lessMonth()'> < </button><div class='dDate'>" + arrMonthRu[monthUser] + " " + yearUser + " года</div>" + "<button onclick='moreMonth()'> > </button> <button onclick='moreYear()'> >> </button>";
+      }
+
+      function lessMonth() {
+         if (monthUser > 0) {
+            monthUser -= 1;
+         } else {
+            monthUser = 11;
+            yearUser -= 1;
+         }
+         drawCalendar();
+      }
+
+      function moreMonth() {
+         if(monthUser < 11) {
+            monthUser += 1;
+         } else {
+            monthUser = 0;
+            yearUser += 1;
+         }
+         drawCalendar();
+      }
+
+      function lessYear() {
+         yearUser > 0 ? yearUser -= 1 : yearUser = 0;
+         drawCalendar();
+      }
+
+      function moreYear() {
+         yearUser += 1;
+         drawCalendar();
+      }
+
+   </script>
+
+
+
+
+
+
+
+ <style>
+    .calendar {
+       margin: 50px;
+       width: 505px;
+    }
+
+    .head .day {
+       background: #EE3233;
+       color: #fff;
+    }
+
+    .date {
+       font-weight: bold;
+       font-size: 18px;
+       text-align: center;
+       margin-bottom: 5px;
+    }
+
+    .week {
+       display: flex;
+       flex-wrap: nowrap;
+    }
+
+    .day {
+       border: 1px #ddd solid;
+       flex-basis: 70px;
+       background: #eee;
+       height: 70px;
+       text-align: center;
+       font-size: 25px;
+       position: static;
+       color: #555;
+       font-weight: bold;
+    }
+
+    .day span {
+       position: relative;
+       top: 20px;
+    }
+
+    .holiday {
+       background: #787878;
+       color: #fff;
+    }
+    button {
+       margin: 0px 20px;
+    }
+
+    .dDate{
+       width: 160px;
+       display: inline-block;
+    }
+ </style>
+
+</body>
+</html>
