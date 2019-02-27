@@ -14,7 +14,7 @@ export class AppComponent {
   });
 
   submit() {
-    if(this.form.value.task == 'null') return;
+    if(!this.form.value.task) return;
     this.tasks.push(this.form.value.task);
     this.form.reset();
   }
