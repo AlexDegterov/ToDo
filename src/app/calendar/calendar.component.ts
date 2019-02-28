@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { containsElement } from '@angular/animations/browser/src/render/shared';
 
 @Component({
   selector: 'app-calendar',
@@ -7,23 +8,64 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalendarComponent implements OnInit {
   // let output = document.getElementById("calendar");
-  thisDay : String = "";
-  arrMonthRu = [{0: "Январь", 1: "Февраль", 2: "Март", 3: "Апрель", 4: "Май", 5: "Июнь", 6: "Июль", 7: "Август", 8: "Сентябрь", 9: "Октябрь", 10: "Ноябрь", 11: "Декабрь"}];
+  thisDay: String;
+  arrMonthRu = {0: "Январь", 1: "Февраль", 2: "Март", 3: "Апрель", 4: "Май", 5: "Июнь", 6: "Июль", 7: "Август", 8: "Сентябрь", 9: "Октябрь", 10: "Ноябрь", 11: "Декабрь"};
   now = new Date();
   yearNow: number = this.now.getFullYear();
   monthNow: number = this.now.getMonth();
   dateNow: number = this.now.getDate();
-  firstDayWeekInMonth: number = new Date(this.yearNow, this.monthNow, 1, 15).getDay();
-  inner: string = "";
-  daysInMonth: number;
-  weekStop: number = 0;
+  firstDayWeekInMonth: number;  // день  недели с которого начинается месяц
+  inner: string;
+  daysInMonth: number;    // дней в месяце
+  weekStop = 0;
+
+  arrDate = [];   // Массив всех дней месяца
+  i: number = 0;
+  tt: string = '';
+
+  weekEnd = [5, 6, 12, 13, 19, 20, 26, 27, 33, 34];
+  // Получение массива дней в месяце
+  arrD() {
+
+    for (this.i = 0; this.i < 38; this.i++) {
+     // console.log(this.weekEnd.indexOf(this.i));
+      this.arrDate.push ({"day" : this.i, "dayW": this.i + 1 - this.firstDayWeekInMonth, "holiday": (this.weekEnd.indexOf(this.i) < 0) ? false : true});
+
+      // if(this.i < this.firstDayWeekInMonth || this.i >= this.daysInMonth + this.firstDayWeekInMonth) {
+
+      //   this.arrDate.push ({"day" : this.i, "dayW": '-', "holiday": (this.i === 5 || this.i === 6) ? false : true});
+      // }
+      // else {
+      //   this.arrDate.push ({"day" : this.i, "dayW": this.i + 1 - this.firstDayWeekInMonth, "holiday": (this.i === 5 || this.i === 6) ? true : false});
+      // }
+    }
+    console.log(this.arrDate);
+    return this.arrDate;
+  }
 
   constructor() { }
 
   ngOnInit() {
     //  console.log(this.yearNow + "-" + this.monthNow + "-" + this.dateNow);
     this.daysInMonth = 32 - new Date(this.yearNow, this.monthNow, 32).getDate();
-    (this.firstDayWeekInMonth === 0) ? this.firstDayWeekInMonth = 7 : "";
+
+    this.firstDayWeekInMonth = new Date(this.yearNow, this.monthNow, 1, 15).getDay();
+
+    (this.firstDayWeekInMonth === 0) ? this.firstDayWeekInMonth = 7 : '';
+
+    this.arrD();
+    // console.log("firstDayWeekInMonth" + this.firstDayWeekInMonth);
+    // console.log("this.yearNow" + this.yearNow);
+    // console.log("this.firstDayWeekInMonth " + this.firstDayWeekInMonth);
+
+
+
+
+
+
+
+
+
 
     // for (w = 0; w < 6 && !weekStop; w++) {
     //    inner += "<div class='week'>";
