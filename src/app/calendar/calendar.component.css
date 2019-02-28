@@ -23,11 +23,14 @@
        text-align: center;
        margin-bottom: 5px;
        margin-top: 20px;
+
     }
 
     .week {
-       display: flex;
-       flex-wrap: nowrap;
+      display: grid;
+      grid-template-columns: 50px 50px 50px 50px 50px 50px 50px;
+      /* grid-template-columns: 50px 50px 50px 50px; */
+      /* flex-wrap: nowrap; */
     }
 
     .day {
@@ -68,3 +71,9 @@
 	.highlightClick {
 		background: #4caf50;
 	}
+
+
+  .itemDay {
+    position: relative;
+    top: 11px;
+  }

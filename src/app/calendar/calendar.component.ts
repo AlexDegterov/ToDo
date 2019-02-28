@@ -26,23 +26,38 @@ export class CalendarComponent implements OnInit {
   weekEnd = [5, 6, 12, 13, 19, 20, 26, 27, 33, 34];
   // Получение массива дней в месяце
   arrD() {
-
-    for (this.i = 0; this.i < 38; this.i++) {
-     // console.log(this.weekEnd.indexOf(this.i));
-      this.arrDate.push ({"day" : this.i, "dayW": this.i + 1 - this.firstDayWeekInMonth, "holiday": (this.weekEnd.indexOf(this.i) < 0) ? false : true});
-
-      // if(this.i < this.firstDayWeekInMonth || this.i >= this.daysInMonth + this.firstDayWeekInMonth) {
-
-      //   this.arrDate.push ({"day" : this.i, "dayW": '-', "holiday": (this.i === 5 || this.i === 6) ? false : true});
-      // }
-      // else {
-      //   this.arrDate.push ({"day" : this.i, "dayW": this.i + 1 - this.firstDayWeekInMonth, "holiday": (this.i === 5 || this.i === 6) ? true : false});
-      // }
+    for (this.i = 0; this.i < 35; this.i++) {
+      this.arrDate.push ({"day" : this.i, "dayW": this.i +2- this.firstDayWeekInMonth, "holiday": (this.weekEnd.indexOf(this.i) < 0) ? false : true});
     }
-    console.log(this.arrDate);
+    //console.log(this.arrDate);
     return this.arrDate;
   }
 
+  lessYear() {
+    this.yearNow--;
+  }
+
+  lessMonth() {
+    if (this.monthNow > 0) {
+      this.monthNow -= 1;
+   } else {
+      this.monthNow = 11;
+      this.yearNow -= 1;
+   }
+  }
+
+  moreMonth() {
+    if(this.monthNow < 11) {
+      this.monthNow += 1;
+   } else {
+    this.monthNow = 0;
+    this.yearNow += 1;
+   }
+  }
+
+  moreYear() {
+    this.yearNow++;
+  }
   constructor() { }
 
   ngOnInit() {

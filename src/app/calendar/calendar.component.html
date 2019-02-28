@@ -1,4 +1,9 @@
 <div class="calendar">
+    <button mat-raised-button color="primary" (click) = "lessYear()"><<</button>
+    <button mat-raised-button color="primary" (click) = "lessMonth()"><</button>
+    <div class='dDate'>{{arrMonthRu[monthNow]}} {{yearNow}} года</div>
+    <button mat-raised-button color="primary" (click) = "moreMonth()">></button>
+    <button mat-raised-button color="primary" (click) = "moreYear()">>></button>
   <div class='date'></div>
   <div class='week head'>
     <div class='day'><span>пн</span></div>
@@ -10,9 +15,22 @@
     <div class='day'><span>вс</span></div>
   </div>
   <div id='weekCalendar'>
-    <div class='week'>
-      <div *ngFor="let item of arrDate; let i = index" class="day" [ngClass]="{holiday: item.holiday}">
-        <span>{{item.i}}</span>
+    <div class='week' >
+      <div class="day" *ngFor="let item of arrDate; let i = index" [ngClass]="{holiday: item.holiday}">
+        <ng-template *ngIf="item.dayW > 0 && item.dayW <= daysInMonth; then dayNum; else dayNull">
+        </ng-template>
+
+        <ng-template #dayNum>
+            <span [ngClass]="{itemDay: true}">{{item.dayW}}</span>
+        </ng-template>
+
+        <ng-template #dayNull >
+          <span [ngStyle]="{'opacity': '0'}">.</span>
+        </ng-template>
+
+        <ng-template *ngIf="item.day == 6; then newWeek">
+        </ng-template>
+
       </div>
     </div>
     <div ></div>
