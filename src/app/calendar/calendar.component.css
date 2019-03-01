@@ -1,79 +1,96 @@
 .calendar {
-       margin: 10px 50px 50px 50px;
-       width: 365px;
-    }
+  margin: 10px 50px 50px 50px;
+  width: 350px;
+}
 
-   .selectDate {
-       margin: 50px 50px 10px 30px;
-       width: 505px;
-    }
+.selectDate {
+  margin: 50px 50px 10px 30px;
+  width: 505px;
+}
 
-   select {
-      margin-left: 10px;
-   }
+select {
+  margin-left: 10px;
+}
 
-    .head .day {
-       background: #EE3233;
-       color: #fff;
-    }
+.head .day {
+  background: #EE3233;
+  color: #fff;
+}
 
-    .date {
-       font-weight: bold;
-       font-size: 18px;
-       text-align: center;
-       margin-bottom: 5px;
-       margin-top: 20px;
+.date {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 5px;
+  margin-top: 20px;
+}
 
-    }
+.week {
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px 50px 50px 50px;
+}
 
-    .week {
-      display: grid;
-      grid-template-columns: 50px 50px 50px 50px 50px 50px 50px;
-      /* grid-template-columns: 50px 50px 50px 50px; */
-      /* flex-wrap: nowrap; */
-    }
+.day {
+  border: 1px #ddd solid;
+  flex-basis: 50px;
+  /* background: #eee; */
+  height: 50px;
+  text-align: center;
+  font-size: 25px;
+  position: static;
+  color: #555;
+  font-weight: bold;
+}
 
-    .day {
-       border: 1px #ddd solid;
-       flex-basis: 50px;
-       background: #eee;
-       height: 50px;
-       text-align: center;
-       font-size: 25px;
-       position: static;
-       color: #555;
-       font-weight: bold;
-    }
+.day span {
+  position: relative;
+  top: 10px;
+}
 
-    .day span {
-       position: relative;
-       top: 10px;
-    }
+.holiday {
+  background: #787878;
+  color: #fff;
+}
 
-    .holiday {
-       background: #787878;
-       color: #fff;
-    }
-    button {
-       margin: 0px 10px;
-    }
+button {
+  /* margin: 0px 5px; */
+}
 
-    .dDate{
-       width: 160px;
-       display: inline-block;
-    }
+.dDate {
+  width: 120px;
+  display: inline-block;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  top: 3px;
+  flex-direction: 100px;
+}
 
-	.highlight {
-		background: #ff0;
-      cursor: context-menu;
-	}
+.highlight {
+  background: #ff0;
+  cursor: context-menu;
+}
 
-	.highlightClick {
-		background: #4caf50;
-	}
+.highlightClick {
+  background: #4caf50;
+}
 
+/* ----------------------------------- */
+.itemDay {
+  position: relative;
+  top: 11px;
+}
 
-  .itemDay {
-    position: relative;
-    top: 11px;
-  }
+.btnLessMore {
+  min-width: 0;
+  line-height: 24px;
+  margin: 0 2px;
+}
+
+.controlDate {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}

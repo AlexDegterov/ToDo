@@ -23,18 +23,26 @@ export class CalendarComponent implements OnInit {
   i: number = 0;
   tt: string = '';
 
-  weekEnd = [5, 6, 12, 13, 19, 20, 26, 27, 33, 34];
+  weekEnd = [5, 6, 12, 13, 19, 20, 26, 27, 33, 34, 40, 41];   // Массив выходных
+
   // Получение массива дней в месяце
   arrD() {
-    for (this.i = 0; this.i < 35; this.i++) {
-      this.arrDate.push ({"day" : this.i, "dayW": this.i +2- this.firstDayWeekInMonth, "holiday": (this.weekEnd.indexOf(this.i) < 0) ? false : true});
+    this.arrDate = [];
+    this.firstDayWeekInMonth = new Date(this.yearNow, this.monthNow, 1, 15).getDay();
+    (this.firstDayWeekInMonth === 0) ? this.firstDayWeekInMonth = 7 : '';
+    this.daysInMonth = 32 - new Date(this.yearNow, this.monthNow, 32).getDate();
+
+    // Массив всех дней, анализ выходных, дня начала месяца
+    for (this.i = 0; this.i < ((this.daysInMonth >= 30 && this.firstDayWeekInMonth >= 7) || (this.daysInMonth >= 31 && this.firstDayWeekInMonth >= 6) ? 42 : 35); this.i++) {
+      this.arrDate.push ({"day" : this.i, "dayW": this.i + 2- this.firstDayWeekInMonth, "holiday": (this.weekEnd.indexOf(this.i) < 0) ? false : true});
     }
-    //console.log(this.arrDate);
+    // console.log(this.arrDate);
     return this.arrDate;
   }
 
   lessYear() {
     this.yearNow--;
+    this.arrD();
   }
 
   lessMonth() {
@@ -44,6 +52,7 @@ export class CalendarComponent implements OnInit {
       this.monthNow = 11;
       this.yearNow -= 1;
    }
+   this.arrD();
   }
 
   moreMonth() {
@@ -53,56 +62,20 @@ export class CalendarComponent implements OnInit {
     this.monthNow = 0;
     this.yearNow += 1;
    }
+   this.arrD();
   }
 
   moreYear() {
     this.yearNow++;
+    this.arrD();
   }
   constructor() { }
 
   ngOnInit() {
-    //  console.log(this.yearNow + "-" + this.monthNow + "-" + this.dateNow);
-    this.daysInMonth = 32 - new Date(this.yearNow, this.monthNow, 32).getDate();
-
-    this.firstDayWeekInMonth = new Date(this.yearNow, this.monthNow, 1, 15).getDay();
-
-    (this.firstDayWeekInMonth === 0) ? this.firstDayWeekInMonth = 7 : '';
-
     this.arrD();
     // console.log("firstDayWeekInMonth" + this.firstDayWeekInMonth);
     // console.log("this.yearNow" + this.yearNow);
     // console.log("this.firstDayWeekInMonth " + this.firstDayWeekInMonth);
-
-
-
-
-
-
-
-
-
-
-    // for (w = 0; w < 6 && !weekStop; w++) {
-    //    inner += "<div class='week'>";
-
-    //    for (i = 0; i <= 6; i++) {
-    //       let holiday = "";
-
-    //       (i === day - 1 && w === 0) ? thisDay++ : "";             // Старт вывода даты
-    //       (i === 5 || i === 6) ? holiday = " holiday" : "";
-    //       inner += "<div class='day" + holiday + "'><span>" + thisDay + "</span></div>";
-    //       thisDay === daysInMonth ? weekStop = 1 : "";           // Останавливаем цикл, что бы не было лишних недель
-
-    //       (thisDay > 0 && thisDay < daysInMonth) ? thisDay++ : thisDay = "";
-    //    }
-
-    //    inner += "</div>";
-    // }
-
-    // output.innerHTML = inner;
-
-    // document.getElementById("date").innerHTML = "<button onclick='lessYear()'> << </button> <button onclick='lessMonth()'> < </button><div class='dDate'>" + arrMonthRu[monthUser] + " " + yearUser + " года</div>" + "<button onclick='moreMonth()'> > </button> <button onclick='moreYear()'> >> </button>";
-
   }
 
 }

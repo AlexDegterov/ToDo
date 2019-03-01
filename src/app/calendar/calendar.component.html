@@ -1,10 +1,18 @@
-<div class="calendar">
-    <button mat-raised-button color="primary" (click) = "lessYear()"><<</button>
-    <button mat-raised-button color="primary" (click) = "lessMonth()"><</button>
-    <div class='dDate'>{{arrMonthRu[monthNow]}} {{yearNow}} года</div>
-    <button mat-raised-button color="primary" (click) = "moreMonth()">></button>
-    <button mat-raised-button color="primary" (click) = "moreYear()">>></button>
-  <div class='date'></div>
+<div class="calendar mat-card">
+  <div class="controlDate">
+      <!-- <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field> -->
+        <!-- <button class="mat-calendar-previous-button mat-icon-button" mat-icon-button="" type="button" ng-reflect-disabled="false" aria-label="Previous month"><span class="mat-button-wrapper"></span><div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple="" ng-reflect-centered="true" ng-reflect-disabled="false" ng-reflect-trigger="[object HTMLButtonElement]"></div><div class="mat-button-focus-overlay"></div></button> -->
+    <button mat-raised-button (click) = "lessYear()" [ngClass]="{btnLessMore: true}"><<</button>
+    <!-- <button class="mat-calendar-previous-button mat-icon-button" mat-icon-button="" type="button" aria-label="Previous month"><span class="mat-button-wrapper"></span><div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple=""></div><div class="mat-button-focus-overlay"></div></button> -->
+    <button mat-raised-button (click) = "lessMonth()" [ngClass]="{btnLessMore: true}"><</button>
+    <div class='dDate'>{{arrMonthRu[monthNow]}} {{yearNow}}</div>
+    <button mat-raised-button (click) = "moreMonth()" [ngClass]="{btnLessMore: true}">></button>
+    <button mat-raised-button (click) = "moreYear()" [ngClass]="{btnLessMore: true}">>></button>
+  </div>
   <div class='week head'>
     <div class='day'><span>пн</span></div>
     <div class='day'><span>вт</span></div>
@@ -25,7 +33,7 @@
         </ng-template>
 
         <ng-template #dayNull >
-          <span [ngStyle]="{'opacity': '0'}">.</span>
+
         </ng-template>
 
         <ng-template *ngIf="item.day == 6; then newWeek">
