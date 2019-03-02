@@ -9,14 +9,14 @@ import { MatCardModule, MatInputModule, MatFormFieldModule, MatButtonModule } fr
 import { MatIconModule, MatToolbarModule} from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CalendarComponent } from './calendar/calendar.component';
-import { SaveLocalService } from './save-local.service';
-import { AddTaskComponent } from './add-task/add-task.component';
+import { DataService } from './data.service';
+import { TasksComponent } from './calendar/tasks/tasks.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CalendarComponent,
-    AddTaskComponent
+    TasksComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +30,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
     MatIconModule,
     MatToolbarModule
   ],
-  providers: [SaveLocalService],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

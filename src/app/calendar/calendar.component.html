@@ -17,7 +17,7 @@
   </div>
   <div class='week' (click)="selectDay($event)">
     <div class="day" *ngFor="let item of arrDate; let i = index" [ngClass]="{holiday: item.holiday}" attr.data-date="{{item.dayW}}">
-      <ng-template *ngIf="item.dayW > 0 && item.dayW <= daysInMonth; then dayNum; else dayNull">
+      <ng-template *ngIf="item.dayW > 0 && item.dayW <= daysInMonth; then dayNum">
       </ng-template>
       <section *ngIf="item.today === true" class="todayCircle">.</section>
 
@@ -25,7 +25,8 @@
           <span [ngClass]="{itemDay: true}">{{item.dayW}}</span>
       </ng-template>
 
-      <ng-template #dayNull></ng-template>
     </div>
   </div>
 </div>
+
+<app-tasks [year]="year" [month]="month" [day]="day"></app-tasks>

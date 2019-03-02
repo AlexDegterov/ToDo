@@ -1,7 +1,8 @@
 let dataItems: any;
 let toJSON: string;
 
-export class SaveLocalService {
+export class DataService {
+  constructor() { }
 
   // Запись в Local Storage
   public storeToLocal(content: object) {
@@ -17,6 +18,4 @@ export class SaveLocalService {
     return JSON.parse(dataItems);
   }
 
-
-  constructor() { }
 }

@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SaveLocalService } from './save-local.service';
+import { DataService } from './data.service';
 
-describe('SaveLocalService', () => {
+describe('DataService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: SaveLocalService = TestBed.get(SaveLocalService);
+    const service: DataService = TestBed.get(DataService);
     expect(service).toBeTruthy();
   });
 });

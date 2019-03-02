@@ -1,4 +1,6 @@
 app-calendar {
-  float: left;
+  display: flex;
   margin-right: 30px;
+  justify-content: center;
+  padding-top: 50px;
 }

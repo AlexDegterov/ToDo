@@ -1,8 +1,9 @@
 <div class="wrapper">
   <mat-toolbar color="primary">
-    <span *ngIf="tasks.length > 0; else noTasksBlock">Количество задач: {{tasks.length}}</span>
+    {{day}} {{arrMonthRu[month]}} {{year}} года.
+    <span *ngIf="tasks.length > 0; else noTasksBlock">&nbsp;Задач: {{tasks.length}}</span>
     <ng-template #noTasksBlock>
-      <span>Еще нет задач...</span>
+      <span>&nbsp;Нет задач...</span>
     </ng-template>
   </mat-toolbar>
   <mat-card>

@@ -1,20 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { SaveLocalService } from '../save-local.service';
+import { OnInit, Input, Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'app-add-task',
-  templateUrl: './add-task.component.html',
-  styleUrls: ['./add-task.component.css']
+  selector: 'app-tasks',
+  templateUrl: './tasks.component.html',
+  styleUrls: ['./tasks.component.css']
 })
-export class AddTaskComponent implements OnInit {
+export class TasksComponent implements OnInit {
+  @Input() year: number;
+  @Input() month: number;
+  @Input() day: number;
 
   public tasks = [];
   private timeAddTask: number;
   public arrTasks = [];
   public tasksFromLocal: any;
+  public arrMonthRu: string[];    // массив русских месяцев
+  private dateTXT: string;
 
-  constructor(public sls: SaveLocalService) {}
+  constructor(public sls: DataService) {}
 
   public form: FormGroup = new FormGroup( {
     task: new FormControl()
@@ -22,6 +27,8 @@ export class AddTaskComponent implements OnInit {
 
   submit() {
     if (!this.form.value.task) { return; }
+    
+    this.dateTXT = this.year + '-' + this.month + '-' + this.day;
     this.timeAddTask = new Date().getTime();
     this.tasks.push({tt: this.timeAddTask, t: this.form.value.task, a: 'yes'});
     this.form.reset();    // очищаем форму
@@ -50,6 +57,7 @@ export class AddTaskComponent implements OnInit {
     this.arrTasks.forEach((V) => {
       this.tasks.push(V);
     });
+    this.arrMonthRu = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
   }
 
 }
