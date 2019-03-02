@@ -5,7 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatIconModule, MatToolbarModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { MatCardModule, MatInputModule, MatFormFieldModule, MatButtonModule } from '@angular/material';
+import { MatIconModule, MatToolbarModule} from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CalendarComponent } from './calendar/calendar.component';
 import { SaveLocalService } from './save-local.service';
@@ -27,9 +28,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
     MatFormFieldModule,
     MatButtonModule,
     MatIconModule,
-    MatToolbarModule,
-      MatDatepickerModule,
-      MatNativeDateModule
+    MatToolbarModule
   ],
   providers: [SaveLocalService],
   bootstrap: [AppComponent]

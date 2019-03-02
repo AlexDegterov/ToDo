@@ -1,20 +1,18 @@
-import { Injectable } from '@angular/core';
-
-@Injectable({
-  providedIn: 'root',
-})
-
 let dataItems: any;
+let toJSON: string;
 
 export class SaveLocalService {
+
   // Запись в Local Storage
-  private storeToLocal(content: object) {
-    localStorage.setItem('ToDoList', JSON.stringify(content));
+  public storeToLocal(content: object) {
+    toJSON = JSON.stringify(content);
+    toJSON = JSON.stringify(toJSON);
+    localStorage.setItem('ToDoList', toJSON);
     return true;
   }
 
   // Чтение из Local Storage
-  private retrieveFromLocal() {
+  public retrieveFromLocal() {
     dataItems = localStorage.getItem('ToDoList');
     return JSON.parse(dataItems);
   }

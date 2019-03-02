@@ -11,26 +11,26 @@ export class AddTaskComponent implements OnInit {
 
   public tasks = [];
   private timeAddTask: number;
-  private rezSave: boolean;
   public arrTasks = [];
+  public tasksFromLocal: any;
 
-  constructor(private sls: SaveLocalService) {}
+  constructor(public sls: SaveLocalService) {}
 
   public form: FormGroup = new FormGroup( {
     task: new FormControl()
   });
 
   submit() {
-    if(!this.form.value.task) return;
+    if (!this.form.value.task) { return; }
     this.timeAddTask = new Date().getTime();
-    this.tasks.push({'tt': this.timeAddTask, 't': this.form.value.task, 'a': 'yes'});
+    this.tasks.push({tt: this.timeAddTask, t: this.form.value.task, a: 'yes'});
     this.form.reset();    // очищаем форму
     this.saveLocal();     // сохраняем добавленную задачу
   }
 
-  // Сохранение локально
+  // Сохранение в Local Storage
   saveLocal() {
-    this.sls.storeToLocal(JSON.stringify(this.tasks));
+    this.sls.storeToLocal(this.tasks);
   }
 
   deleteTask(index: number) {
@@ -44,10 +44,12 @@ export class AddTaskComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.arrTasks = JSON.parse(this.sls.retrieveFromLocal());
+    this.tasksFromLocal = JSON.parse(this.sls.retrieveFromLocal());
+    if (!this.tasksFromLocal) { return; }
+    this.arrTasks = this.tasksFromLocal;
     this.arrTasks.forEach((V) => {
       this.tasks.push(V);
-    })
+    });
   }
 
 }

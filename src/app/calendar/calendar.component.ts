@@ -1,27 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { containsElement } from '@angular/animations/browser/src/render/shared';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent implements OnInit {
-  // let output = document.getElementById("calendar");
-  thisDay: String;
-  arrMonthRu = {0: "Январь", 1: "Февраль", 2: "Март", 3: "Апрель", 4: "Май", 5: "Июнь", 6: "Июль", 7: "Август", 8: "Сентябрь", 9: "Октябрь", 10: "Ноябрь", 11: "Декабрь"};
-  now = new Date();
-  yearNow: number = this.now.getFullYear();
-  monthNow: number = this.now.getMonth();
-  dateNow: number = this.now.getDate();
-  firstDayWeekInMonth: number;  // день  недели с которого начинается месяц
-  inner: string;
-  daysInMonth: number;    // дней в месяце
-  weekStop = 0;
 
-  arrDate = [];   // Массив всех дней месяца
-  i: number = 0;
-  tt: string = '';
+export class CalendarComponent implements OnInit {
+  private arrMonthRu: string[];
+  private now: any;
+  private yearNow: number;
+  private monthNow: number;
+  private dateNow: number;
+  private firstDayWeekInMonth: number; // день  недели с которого начинается месяц
+  private daysInMonth: number;    // дней в месяце
+
+  private arrDate = [];   // Массив всех дней месяца
+  private i: number;
+  private tt: string;
 
   weekEnd = [5, 6, 12, 13, 19, 20, 26, 27, 33, 34, 40, 41];   // Массив выходных
 
@@ -29,14 +25,15 @@ export class CalendarComponent implements OnInit {
   arrD() {
     this.arrDate = [];
     this.firstDayWeekInMonth = new Date(this.yearNow, this.monthNow, 1, 15).getDay();
-    (this.firstDayWeekInMonth === 0) ? this.firstDayWeekInMonth = 7 : '';
+    if (this.firstDayWeekInMonth === 0) { this.firstDayWeekInMonth = 7; }
     this.daysInMonth = 32 - new Date(this.yearNow, this.monthNow, 32).getDate();
 
     // Массив всех дней, анализ выходных, дня начала месяца
+// tslint:disable-next-line: max-line-length
     for (this.i = 0; this.i < ((this.daysInMonth >= 30 && this.firstDayWeekInMonth >= 7) || (this.daysInMonth >= 31 && this.firstDayWeekInMonth >= 6) ? 42 : 35); this.i++) {
-      this.arrDate.push ({"day" : this.i, "dayW": this.i + 2- this.firstDayWeekInMonth, "holiday": (this.weekEnd.indexOf(this.i) < 0) ? false : true});
+// tslint:disable-next-line: max-line-length
+      this.arrDate.push ({day: this.i, dayW: this.i + 2 - this.firstDayWeekInMonth, holiday: (this.weekEnd.indexOf(this.i) < 0) ? false : true});
     }
-    // console.log(this.arrDate);
     return this.arrDate;
   }
 
@@ -52,17 +49,17 @@ export class CalendarComponent implements OnInit {
       this.monthNow = 11;
       this.yearNow -= 1;
    }
-   this.arrD();
+    this.arrD();
   }
 
   moreMonth() {
-    if(this.monthNow < 11) {
+    if (this.monthNow < 11) {
       this.monthNow += 1;
    } else {
     this.monthNow = 0;
     this.yearNow += 1;
    }
-   this.arrD();
+    this.arrD();
   }
 
   moreYear() {
@@ -72,10 +69,12 @@ export class CalendarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.arrD();
-    // console.log("firstDayWeekInMonth" + this.firstDayWeekInMonth);
-    // console.log("this.yearNow" + this.yearNow);
-    // console.log("this.firstDayWeekInMonth " + this.firstDayWeekInMonth);
-  }
+    this.arrMonthRu = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+    this.now = new Date();
+    this.yearNow = this.now.getFullYear();
+    this.monthNow = this.now.getMonth();
+    this.dateNow = this.now.getDate();
 
+    this.arrD();
+  }
 }
