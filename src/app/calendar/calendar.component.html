@@ -2,7 +2,7 @@
   <div class="controlDate">
     <button mat-raised-button (click) = "lessYear()" [ngClass]="{btnLessMore: true}"><<</button>
     <button mat-raised-button (click) = "lessMonth()" [ngClass]="{btnLessMore: true}"><</button>
-    <div class='dDate'>{{arrMonthRu[monthNow]}} {{yearNow}}</div>
+    <div class='dDate'>{{arrMonthRu[month]}} {{year}}</div>
     <button mat-raised-button (click) = "moreMonth()" [ngClass]="{btnLessMore: true}">></button>
     <button mat-raised-button (click) = "moreYear()" [ngClass]="{btnLessMore: true}">>></button>
   </div>
@@ -15,20 +15,17 @@
     <div class='day'><span>сб</span></div>
     <div class='day'><span>вс</span></div>
   </div>
-  <div id='weekCalendar'>
-    <div class='week' >
-      <div class="day" *ngFor="let item of arrDate; let i = index" [ngClass]="{holiday: item.holiday}">
-        <ng-template *ngIf="item.dayW > 0 && item.dayW <= daysInMonth; then dayNum; else dayNull">
-        </ng-template>
+  <div class='week' (click)="selectDay($event)">
+    <div class="day" *ngFor="let item of arrDate; let i = index" [ngClass]="{holiday: item.holiday}" attr.data-date="{{item.dayW}}">
+      <ng-template *ngIf="item.dayW > 0 && item.dayW <= daysInMonth; then dayNum; else dayNull">
+      </ng-template>
+      <section *ngIf="item.today === true" class="todayCircle">.</section>
 
-        <ng-template #dayNum>
-            <span [ngClass]="{itemDay: true}">{{item.dayW}}</span>
-        </ng-template>
+      <ng-template #dayNum>
+          <span [ngClass]="{itemDay: true}">{{item.dayW}}</span>
+      </ng-template>
 
-        <ng-template #dayNull >
-        </ng-template>
-      </div>
+      <ng-template #dayNull></ng-template>
     </div>
-    <div ></div>
   </div>
 </div>

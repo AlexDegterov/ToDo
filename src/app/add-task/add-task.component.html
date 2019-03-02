@@ -1,24 +1,24 @@
-<mat-toolbar color="primary">
-  <span *ngIf="tasks.length > 0; else noTasksBlock">Количество задач: {{tasks.length}}</span>
-  <ng-template #noTasksBlock>
-    <span>Еще нет задач...</span>
-  </ng-template>
-</mat-toolbar>
 <div class="wrapper">
-<mat-card>
-  <form [formGroup]="form" (submit)="submit()" novalidate>
-    <mat-form-field class="task-add">
-      <input matInput formControlName="task" placeholder="Описание задачи">
-    </mat-form-field>
-    <button mat-raised-button color="primary">Добавить</button>
-  </form>
-  <div *ngFor="let item of viewSaved(); let i = index" class="task-list">
-    <mat-card class="task-item">
-      <button mat-icon-button (click)="deleteTask(i)" color="warn">
-        <mat-icon>clear</mat-icon>
-      </button>
-      <span>{{item.t}}</span>
-    </mat-card>
-  </div>
-</mat-card>
+  <mat-toolbar color="primary">
+    <span *ngIf="tasks.length > 0; else noTasksBlock">Количество задач: {{tasks.length}}</span>
+    <ng-template #noTasksBlock>
+      <span>Еще нет задач...</span>
+    </ng-template>
+  </mat-toolbar>
+  <mat-card>
+    <form [formGroup]="form" (submit)="submit()" novalidate>
+      <mat-form-field class="task-add">
+        <input matInput formControlName="task" placeholder="Описание задачи">
+      </mat-form-field>
+      <button mat-raised-button color="primary">Добавить</button>
+    </form>
+    <div *ngFor="let item of viewSaved(); let i = index" class="task-list">
+      <mat-card class="task-item">
+        <button mat-icon-button (click)="deleteTask(i)" color="warn">
+          <mat-icon>clear</mat-icon>
+        </button>
+        <span>{{item.t}}</span>
+      </mat-card>
+    </div>
+  </mat-card>
 </div>

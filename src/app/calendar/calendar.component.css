@@ -52,10 +52,6 @@ select {
   color: #fff;
 }
 
-button {
-  /* margin: 0px 5px; */
-}
-
 .dDate {
   width: 120px;
   display: inline-block;
@@ -64,6 +60,7 @@ button {
   position: relative;
   top: 3px;
   flex-direction: 100px;
+  /* line-height: 2.3; */
 }
 
 .highlight {
@@ -72,13 +69,15 @@ button {
 }
 
 .highlightClick {
-  background: #4caf50;
+  background: #ee32332b;
+  color: black;
 }
 
 /* ----------------------------------- */
 .itemDay {
   position: relative;
   top: 11px;
+  /* z-index: 2; */
 }
 
 .btnLessMore {
@@ -93,4 +92,17 @@ button {
   flex-wrap: nowrap;
   justify-content: space-between;
   margin-bottom: 7px;
+}
+
+.todayCircle {
+  border: 3px red solid;
+  border-radius: 50%;
+  height: 36px;
+  width: 36px;
+  position: relative;
+  left: 3px;
+  top: -25px;
+  font-size: 0;
+  /* background-color: red;
+  opacity: 0.4; */
 }
