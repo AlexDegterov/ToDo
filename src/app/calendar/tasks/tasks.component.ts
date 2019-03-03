@@ -1,6 +1,6 @@
 import { OnInit, Input, Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { DataService } from 'src/app/data.service';
+import { DataService } from '../../data.service';
 
 @Component({
   selector: 'app-tasks',
@@ -27,7 +27,7 @@ export class TasksComponent implements OnInit {
 
   submit() {
     if (!this.form.value.task) { return; }
-    
+
     this.dateTXT = this.year + '-' + this.month + '-' + this.day;
     this.timeAddTask = new Date().getTime();
     this.tasks.push({tt: this.timeAddTask, t: this.form.value.task, a: 'yes'});
